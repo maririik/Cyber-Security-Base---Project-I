@@ -1,0 +1,14 @@
+{% extends 'notes_app/base.html' %}
+{% block content %}
+<h2>Search Notes</h2>
+<form method="get">
+    <input type="text" name="q" value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
+<ul>
+{% for note in notes %}
+    <li><a href="/notes/{{ note.id }}/">{{ note.title }}</a></li>
+{% endfor %}
+</ul>
+<a href="/notes/">Back</a>
+{% endblock %}

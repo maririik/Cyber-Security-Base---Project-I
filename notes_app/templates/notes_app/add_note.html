@@ -1,0 +1,11 @@
+{% extends 'notes_app/base.html' %}
+{% block content %}
+<h2>Add Note</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>Title: <input type="text" name="title"></p>
+    <p>Content: <textarea name="content"></textarea></p>
+    <button type="submit">Save</button>
+</form>
+<a href="/notes/">Back</a>
+{% endblock %}
