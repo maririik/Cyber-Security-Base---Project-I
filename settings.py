@@ -1,11 +1,11 @@
 """
-FLAW 5: A05 Security Misconfiguration
+FLAW 4 & 5: A05 Security Misconfiguration
 - DEBUG = True exposes stack traces and internal info to users
 - SECRET_KEY is hardcoded and weak
-- FIX: Set DEBUG = False in production, use environment variable for SECRET_KEY
-  import os
-  SECRET_KEY = os.environ.get('SECRET_KEY')
-  DEBUG = False
+- No password validation
+- FIX for DEBUG: Set DEBUG = False in production
+- FIX for SECRET_KEY: use environment variable
+- FIX for passwords: add AUTH_PASSWORD_VALIDATORS
 """
 
 import os
@@ -13,10 +13,11 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-# FLAW: Hardcoded weak secret key (A05 Security Misconfiguration)
+# FLAW 4: Hardcoded weak secret key (A05 Security Misconfiguration)
+# FIX: SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = 'password123'
 
-# FLAW: Debug mode on (A05 Security Misconfiguration)
+# FLAW 4: Debug mode on (A05 Security Misconfiguration)
 DEBUG = True
 # FIX: DEBUG = False
 
@@ -67,5 +68,10 @@ DATABASES = {
     }
 }
 
-# FLAW: No password validators (A07 Identification and Authentication Failures)
+# FLAW 5: No password validators (A07 Identification and Authentication Failures)
+# FIX: see views.py register function for manual length check
 AUTH_PASSWORD_VALIDATORS = []
+
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
