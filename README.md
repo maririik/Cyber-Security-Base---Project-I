@@ -5,10 +5,12 @@ The application contains 5 intentional security flaws from the OWASP Top 10 2021
 
 ## Setup
 
+```bash
 pip install django
 python manage.py makemigrations notes_app
 python manage.py migrate
 python manage.py runserver
+```
 
 Then go to http://localhost:8000/register/ to create an account.
 
