@@ -1,11 +1,8 @@
 """
-FLAW 4 & 5: A05 Security Misconfiguration
-- DEBUG = True exposes stack traces and internal info to users
+FLAW 4: A05 Security Misconfiguration
+- DEBUG = True exposes internal server information to users
 - SECRET_KEY is hardcoded and weak
-- No password validation
-- FIX for DEBUG: Set DEBUG = False in production
-- FIX for SECRET_KEY: use environment variable
-- FIX for passwords: add AUTH_PASSWORD_VALIDATORS
+- FIX: Set DEBUG = False and use environment variable for SECRET_KEY
 """
 
 import os
@@ -17,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent
 # FIX: SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = 'password123'
 
-# FLAW 4: Debug mode on (A05 Security Misconfiguration)
+# FLAW 4: Debug mode exposes internal server details to anyone (A05 Security Misconfiguration)
 DEBUG = True
 # FIX: DEBUG = False
 
@@ -68,8 +65,6 @@ DATABASES = {
     }
 }
 
-# FLAW 5: No password validators (A07 Identification and Authentication Failures)
-# FIX: see views.py register function for manual length check
 AUTH_PASSWORD_VALIDATORS = []
 
 STATIC_URL = '/static/'
