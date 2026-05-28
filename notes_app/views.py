@@ -7,6 +7,10 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # FLAW 5: A07 Identification and Authentication Failures - no password requirements
+        # FIX: uncomment the lines below to enforce minimum password length
+        # if len(password) < 8:
+        #     return render(request, 'notes_app/register.html', {'error': 'Password must be at least 8 characters'})
         # FLAW 3: A02 Cryptographic Failures - storing password in plaintext
         # FIX: Use Django's built-in auth: User.objects.create_user(username, password=password)
         User.objects.create(username=username, password=password)
@@ -54,7 +58,6 @@ def add_note(request):
 # FLAW 2: A01 Broken Access Control
 # Any logged in user can view any note by changing the note id in the URL
 # FIX: Check that the note belongs to the logged in user before returning it
-# if note.user.id != user_id: return redirect('/notes/')
 def view_note(request, note_id):
     user_id = request.session.get('user_id')
     if not user_id:
@@ -62,8 +65,7 @@ def view_note(request, note_id):
     # FLAW: No ownership check - any user can view any note
     note = Note.objects.get(id=note_id)
     # FIX:
-    # note = Note.objects.get(id=note_id)
-    # if note.user.id != user_id:
+    # if note.user.id != int(user_id):
     #     return redirect('/notes/')
     return render(request, 'notes_app/view_note.html', {'note': note})
 

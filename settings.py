@@ -68,15 +68,4 @@ DATABASES = {
 }
 
 # FLAW: No password validators (A07 Identification and Authentication Failures)
-# FIX: Uncomment the validators below
 AUTH_PASSWORD_VALIDATORS = []
-# FIX:
-# AUTH_PASSWORD_VALIDATORS = [
-#     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-#     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
-# ]
-
-STATIC_URL = '/static/'
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
